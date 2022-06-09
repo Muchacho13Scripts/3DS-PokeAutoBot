@@ -49,7 +49,10 @@ namespace _3DS_link_trade_bot
             await touch(235, 130, 1);
             await touch(165, 165, 5);
             var thegift = wtmons[rng.Next(wtmons.Count())];
+            string shiney = thegift.IsShiny ? "Shiny " : "";
+            string eggy = thegift.IsEgg ? " (Egg)" : "";
             await Gen7LinkTradeBot.injection(thegift);
+            SetText($"Wondertrading now:\n{shiney}{(Species)thegift.Species}{eggy}");
             await click(A, 5);
             for (int i = 0; i < 2; i++)
                 await click(A, 1);
@@ -98,14 +101,14 @@ namespace _3DS_link_trade_bot
                 foreach (var chan in _settings.Discordsettings.BotWTChannel)
                 {
                     var tosend = (ITextChannel)_client.GetChannel(chan);
-                    await tosend.SendMessageAsync($"{i}");
+                    await tosend.SendMessageAsync(Format.Code($"{i}"));
                 }
                     await Task.Delay(1000);
                 }
             foreach (var chan in _settings.Discordsettings.BotWTChannel)
             {
                 var tosend = (ITextChannel)_client.GetChannel(chan);
-                await tosend.SendMessageAsync("wonder trade now");
+                await tosend.SendMessageAsync(Format.Code("Starting Wondertrade now!"));
             }
                 ChangeStatus($"Wonder Trading: {(Species)thegift.Species}");
             
@@ -141,6 +144,7 @@ namespace _3DS_link_trade_bot
             }
             matchedtrainer = Encoding.Unicode.GetString(matchedtrainerbytes).Trim('\0').Trim('６').Trim('５').Trim('４');
             ChangeStatus($"WT Match Found: Trainer: {matchedtrainer} Incoming: {(Species)receivingpkm.Species}");
+            SetText($"Trainer Found: {matchedtrainer}!\nTrading Now...");
             foreach (var chan in _settings.Discordsettings.BotWTChannel)
             {
                 var tosend = (ITextChannel)_client.GetChannel(chan);
@@ -182,6 +186,7 @@ namespace _3DS_link_trade_bot
                     await touch(155, 151, 1);
                 }
                 ChangeStatus("Wonder Trade Complete");
+            SetText($"Wonder Trade Complete!\nNext Trade Incoming!");
             stop.Restart();
                 while (!infestivalplaza&&stop.ElapsedMilliseconds < 60_000)
                     await click(B, 2);
@@ -191,5 +196,10 @@ namespace _3DS_link_trade_bot
 
 
         }
+        private static void SetText(string text)
+        {
+            System.IO.File.WriteAllText($"BotStatus.txt", text);
+        }
     }
+
 }

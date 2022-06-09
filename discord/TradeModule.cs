@@ -84,7 +84,7 @@ namespace _3DS_link_trade_bot
                     return;
                 }
                 var buffer = await discordmain.DownloadFromUrlAsync(pk7.Url);
-                var pkm = EntityFormat.GetFromBytes(buffer, EntityContext.Gen7);
+                var pkm = EntityFormat.GetFromBytes(buffer);
                 if(!new LegalityAnalysis(pkm).Valid)
                 {
                     SaveFile sav;

@@ -50,7 +50,7 @@ namespace _3DS_link_trade_bot
                 if (Connection.Connected)
                 {
 
-                    Log("IR Connected");
+                    await Log("IR Connected");
                 }
             }
             catch { }
@@ -71,7 +71,7 @@ namespace _3DS_link_trade_bot
             try
             {
                 var bot = new discordmain();
-                bot.MainAsync();
+                await bot.MainAsync();
                 ChangeStatus("Connected to Discord");
             }
             catch { ChangeStatus("Could not connect to discord"); }

@@ -23,7 +23,10 @@ namespace _3DS_link_trade_bot
         {
             
             ChangeStatus("starting a Link Trade");
-            await tradeinfo.discordcontext.User.SendMessageAsync("starting your trade now, be prepared to accept the invite!");
+            await tradeinfo.discordcontext.User.SendMessageAsync("Starting Your Trade Now, Be Prepared To Accept The Invite!");
+            string shiney = tradeinfo.tradepokemon.IsShiny ? "Shiny " : "";
+            string eggy = tradeinfo.tradepokemon.IsEgg ? " (Egg)" : "";
+            SetText($"Trade Request for {tradeinfo.discordcontext.User.Username}\nSending: {shiney}{(Species)tradeinfo.tradepokemon.Species}{eggy}");
             if (IsSoftBanned)
             {
                 ChangeStatus("softban detected, restarting game");
@@ -107,6 +110,7 @@ namespace _3DS_link_trade_bot
                 await Task.Delay(25);
             }
             ChangeStatus("link trading");
+            SetText($"Trainer Found!\nStarting Link Trade...");
             await click(A, 10);
             stop.Restart();
             while ((!onboxscreen && !infestivalplaza))
@@ -130,6 +134,7 @@ namespace _3DS_link_trade_bot
                 File.Delete(temp);
             }
             ChangeStatus("Link Trade Complete");
+            SetText($"Link Trade Complete!\nNext Trade Incoming!");
             await click(B, 1);
             await click(A, 10);
             return;
@@ -266,6 +271,10 @@ namespace _3DS_link_trade_bot
             await click(A, 10);
             return;
 
+        }
+        private static void SetText(string text)
+        {
+            System.IO.File.WriteAllText($"BotStatus.txt", text);
         }
     }
 }

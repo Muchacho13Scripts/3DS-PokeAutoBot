@@ -133,7 +133,7 @@ namespace _3DS_link_trade_bot
                 if (!EntityDetection.IsSizePlausible(attach.Size))
                     return;
 
-                var pokme = EntityFormat.GetFromBytes(await DownloadFromUrlAsync(attach.Url), EntityContext.Gen7);
+                var pokme = EntityFormat.GetFromBytes(await DownloadFromUrlAsync(attach.Url));
                 var newShowdown = new List<string>();
                 var showdown = ShowdownParsing.GetShowdownText(pokme);
                 foreach (var line in showdown.Split('\n'))
