@@ -96,15 +96,20 @@ namespace _3DS_link_trade_bot
             }
                 await Task.Delay(10_000);
          
+
                 for (int i = 5; i > 0; i--)
                 {
                 foreach (var chan in _settings.Discordsettings.BotWTChannel)
                 {
+
                     var tosend = (ITextChannel)_client.GetChannel(chan);
                     await tosend.SendMessageAsync(Format.Code($"{i}"));
                 }
-                    await Task.Delay(1000);
+                await Task.Delay(1000);
                 }
+
+
+
             foreach (var chan in _settings.Discordsettings.BotWTChannel)
             {
                 var tosend = (ITextChannel)_client.GetChannel(chan);

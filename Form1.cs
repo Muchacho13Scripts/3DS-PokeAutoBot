@@ -50,7 +50,7 @@ namespace _3DS_link_trade_bot
                 if (Connection.Connected)
                 {
 
-                    await Log("IR Connected");
+                    Log("IR Connected");
                 }
             }
             catch { }
@@ -71,7 +71,7 @@ namespace _3DS_link_trade_bot
             try
             {
                 var bot = new discordmain();
-                await bot.MainAsync();
+                bot.MainAsync();
                 ChangeStatus("Connected to Discord");
             }
             catch { ChangeStatus("Could not connect to discord"); }
@@ -159,6 +159,7 @@ namespace _3DS_link_trade_bot
             
             form1.IpAddress.Text = Properties.Settings.Default.IpAddress;
             settings.Discordsettings.token = Properties.Settings.Default.discordtoken;
+            settings.Discordsettings.WTPwaittime = Properties.Settings.Default.WTPwaittime;
             settings.Discordsettings.BotTradeChannel = Properties.Settings.Default.botchannels;
             settings.FriendCode = Properties.Settings.Default.botfc;
             settings.PokemonWanted = Properties.Settings.Default.Pokemonwanted;

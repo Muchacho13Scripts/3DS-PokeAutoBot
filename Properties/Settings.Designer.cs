@@ -250,5 +250,28 @@ namespace _3DS_link_trade_bot.Properties {
                 this["knowngtsbreakers"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Leaderboard {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Leaderboard"]));
+            }
+            set {
+                this["Leaderboard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int WTPwaittime {
+            get {
+                return ((int)(this["WTPwaittime"]));
+            }
+            set {
+                this["WTPwaittime"] = value;
+            }
+        }
     }
 }
