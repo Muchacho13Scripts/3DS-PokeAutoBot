@@ -253,6 +253,42 @@ namespace _3DS_link_trade_bot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool sendstatusmessage {
+            get {
+                return ((bool)(this["sendstatusmessage"]));
+            }
+            set {
+                this["sendstatusmessage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ulong pingroleid {
+            get {
+                return ((ulong)(this["pingroleid"]));
+            }
+            set {
+                this["pingroleid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Gen 7 Link Trade Bot is Online")]
+        public string pingmessage {
+            get {
+                return ((string)(this["pingmessage"]));
+            }
+            set {
+                this["pingmessage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public global::System.Collections.Specialized.StringCollection Leaderboard {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["Leaderboard"]));

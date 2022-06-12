@@ -66,16 +66,62 @@ namespace _3DS_link_trade_bot
                     embed.ImageUrl = $"https://raw.githubusercontent.com/santacrab2/SysBot.NET/RNGstuff/finalimages/{randspecies}a.png";
                 await wtpchannel.SendMessageAsync(embed: embed.Build());
       
+                if (guess.ToLower() == ((Species)randspecies).ToString().ToLower())
+                {
+                    var compmessage = new ComponentBuilder().WithButton("Yes","wtpyes",ButtonStyle.Success).WithButton("No","wtpno",ButtonStyle.Danger);
+                    var embedmes = new EmbedBuilder();
+                    embedmes.AddField("Receive Pokemon?", $"Would you like to receive {(Species)randspecies} in your game?");
+                    await ReplyAsync(embed: embedmes.Build(), components: compmessage.Build());
+                    
+                    while (!buttonpressed)
+                    {
+                        await Task.Delay(25);
+                    }
+                    if (tradepokemon)
+                    {
+                        var set = new ShowdownSet($"{(Species)randspecies}\nShiny: Yes");
+                        var template = new PK7();
+                        var sav = TrainerSettings.GetSavedTrainerData(7);
+                        var pk = sav.GetLegalFromTemplate(template,set, out var result);
+                        pk = pk.Legalize();
+                        if (!new LegalityAnalysis(pk).Valid)
+                        {
+                            set = new ShowdownSet(((Species)randspecies).ToString());
+                            template = new PK7();
+                            sav = TrainerSettings.GetSavedTrainerData(7);
+                            pk = sav.GetLegalFromTemplate(template, set, out result);
+                            pk = pk.Legalize();
+                        }
+                        pk.Ball = BallApplicator.ApplyBallLegalByColor(pk);
+                        int[] sugmov = MoveSetApplicator.GetMoveSet(pk, true);
+                        pk.SetMoves(sugmov);
+                        int natue = random.Next(24);
+                        pk.Nature = natue;
+                        EffortValues.SetRandom(pk.EVs, 8);
+
+                        try { await Context.User.SendMessageAsync("I have added you to the queue. I will message you here when the trade starts"); } catch { await FollowupAsync("enable private messages from users on the server to be queued"); return; }
+                        var tobequeued = new queuesystem() { discordcontext = con, friendcode = "", IGN = ign, tradepokemon = pk, mode = botmode.trade };
+                        MainHub.The_Q.Enqueue(tobequeued);
+                        await FollowupAsync($"{Context.User.Username} - Added to the queue. Current Position: {MainHub.The_Q.Count()}. Receiving: {(Species)pk.Species}");
+
+                    }
+                    usr = null;
+                    guess = "";
+                    tradepokemon = false;
+                    buttonpressed = false;
+                }
                 usr = null;
                 guess = "";
             }
+            await wtpchannel.ModifyAsync(newname => newname.Name = wtpchannel.Name.Replace("✅","❌"));
+            await wtpchannel.AddPermissionOverwriteAsync(wtpchannel.Guild.EveryoneRole, new OverwritePermissions(sendMessages: PermValue.Deny));
             WTPsource = new();
         }
         [EnabledInDm(false)]
         [DefaultMemberPermissions(GuildPermission.ViewChannel)]
         [SlashCommand("guess","guess the pokemon")]
        
-        public async Task WTPguess([Summary("pokemon")]string userguess)
+        public async Task WTPguess([Summary("pokemon")]string userguess, [Summary(description: "In Game Trainer Name, if you plan to receive your guess in trade")] string TrainerName="")
         {
             await DeferAsync();
             if (userguess.ToLower() == ((Species)randspecies).ToString().ToLower())
@@ -84,7 +130,7 @@ namespace _3DS_link_trade_bot
                 guess = userguess;
                 usr = Context.User;
                 con = Context;
-
+                ign = TrainerName;
             }
             else
                 await FollowupAsync($"{Context.User.Username} You are incorrect. It is not {userguess}");
@@ -105,9 +151,9 @@ namespace _3DS_link_trade_bot
             List<int> dex = new();
             for (int i = 1; i <= 907; i++)
             {
-               var entry = PersonalTable.USUM.GetFormEntry(i,0);
-               if (entry is PersonalInfoSM { IsPresentInGame: false})
-                   continue;
+                var entry = PersonalTable.USUM.GetFormEntry(i,0);
+                if (entry is PersonalInfoSM { IsPresentInGame: false})
+                    continue;
 
                 var species = SpeciesName.GetSpeciesNameGeneration(i, 2, 8);
                 var set = new ShowdownSet($"{species}{(i == (int)NidoranF ? "-F" : i == (int)NidoranM ? "-M" : "")}");

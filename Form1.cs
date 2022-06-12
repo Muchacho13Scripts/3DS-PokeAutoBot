@@ -114,7 +114,7 @@ namespace _3DS_link_trade_bot
 
             var trainer = TrainerSettings.GetSavedTrainerData(7);
             RecentTrainerCache.SetRecentTrainer(trainer);
-           
+          
         }
         public static void ChangeStatus(string text)
         {
@@ -177,6 +177,9 @@ namespace _3DS_link_trade_bot
             settings.Legalitysettings.SetUserSpecifiedPokeball = Properties.Settings.Default.userpokeball;
             settings.Legalitysettings.UseBatchEditor = Properties.Settings.Default.batchedit;
             settings.Legalitysettings.ZKnownGTSBreakers = Properties.Settings.Default.knowngtsbreakers;
+            settings.Discordsettings.SendStatusMessage = Properties.Settings.Default.sendstatusmessage;
+            settings.Discordsettings.PingRoleID = Properties.Settings.Default.pingroleid;
+            settings.Discordsettings.PingMessage = Properties.Settings.Default.pingmessage;
             if (!Directory.Exists(wtfolder))
                 Directory.CreateDirectory(wtfolder);
             if(!Directory.Exists(logfolder))
@@ -210,25 +213,26 @@ namespace _3DS_link_trade_bot
           
 
             MainHub.starttrades();
-         
-            
-            foreach (var channel in settings.Discordsettings.BotTradeChannel)
+
+            if (_settings.Discordsettings.SendStatusMessage)
             {
-                
-                var botchannelid = (ITextChannel)discordmain._client.GetChannelAsync(channel).Result;
-                if (botchannelid.Name.Contains("❌"))
+                foreach (var channel in settings.Discordsettings.BotTradeChannel)
                 {
+
+                    var botchannelid = (ITextChannel)discordmain._client.GetChannelAsync(channel).Result;
+
                     botchannelid.ModifyAsync(x => x.Name = botchannelid.Name.Replace("❌", "✅"));
                     botchannelid.AddPermissionOverwriteAsync(botchannelid.Guild.EveryoneRole, new OverwritePermissions(sendMessages: PermValue.Allow));
                     var offembed = new EmbedBuilder();
-                    offembed.AddField($"{discordmain._client.CurrentUser.Username} Bot Announcement", "Gen 7 Link Trade Bot is Online");
-                    botchannelid.SendMessageAsync("<@&898900914348372058>", embed: offembed.Build());
+                    offembed.AddField($"{discordmain._client.CurrentUser.Username} Bot Announcement", _settings.Discordsettings.PingMessage);
+                    botchannelid.SendMessageAsync($"<@&{_settings.Discordsettings.PingRoleID}>", embed: offembed.Build());
+
                 }
             }
             form1.startlinktrades.Enabled = false;
             form1.LinkTradeStop.Enabled = true;
+           
 
-            
         }
 
         private void discordconnect_Click(object sender, EventArgs e)
@@ -259,6 +263,9 @@ namespace _3DS_link_trade_bot
             Properties.Settings.Default.userpokeball=settings.Legalitysettings.SetUserSpecifiedPokeball;
             Properties.Settings.Default.batchedit=settings.Legalitysettings.UseBatchEditor;
             Properties.Settings.Default.knowngtsbreakers = settings.Legalitysettings.ZKnownGTSBreakers;
+            Properties.Settings.Default.pingmessage = settings.Discordsettings.PingMessage;
+            Properties.Settings.Default.pingroleid = settings.Discordsettings.PingRoleID;
+            Properties.Settings.Default.sendstatusmessage = settings.Discordsettings.SendStatusMessage;
             Properties.Settings.Default.Save();
             var filelist = Directory.GetFiles(logfolder);
             if (Directory.GetFiles(logfolder).Length > 7)
@@ -272,16 +279,19 @@ namespace _3DS_link_trade_bot
         private void LinkTradeStop_Click(object sender, EventArgs e)
         {
             MainHub.tradetoken.Cancel();
-            
-            foreach (var channel in settings.Discordsettings.BotTradeChannel)
+            WTPSB.WTPsource.Cancel();
+            if (_settings.Discordsettings.SendStatusMessage)
             {
-                
-                var botchannelid = (ITextChannel)discordmain._client.GetChannelAsync(channel).Result;
-                botchannelid.ModifyAsync(x => x.Name = botchannelid.Name.Replace("✅", "❌"));
-                botchannelid.AddPermissionOverwriteAsync(botchannelid.Guild.EveryoneRole, new OverwritePermissions(sendMessages: PermValue.Deny));
-                var offembed = new EmbedBuilder();
-                offembed.AddField($"{discordmain._client.CurrentUser.Username} Bot Announcement", "Gen 7 Link Trade Bot is Offline");
-                botchannelid.SendMessageAsync(embed: offembed.Build());
+                foreach (var channel in settings.Discordsettings.BotTradeChannel)
+                {
+
+                    var botchannelid = (ITextChannel)discordmain._client.GetChannelAsync(channel).Result;
+                    botchannelid.ModifyAsync(x => x.Name = botchannelid.Name.Replace("✅", "❌"));
+                    botchannelid.AddPermissionOverwriteAsync(botchannelid.Guild.EveryoneRole, new OverwritePermissions(sendMessages: PermValue.Deny));
+                    var offembed = new EmbedBuilder();
+                    offembed.AddField($"{discordmain._client.CurrentUser.Username} Bot Announcement", "Gen 7 Link Trade Bot is Offline");
+                    botchannelid.SendMessageAsync(embed: offembed.Build());
+                }
             }
             form1.startlinktrades.Enabled = true;
             form1.LinkTradeStop.Enabled = false;
@@ -350,7 +360,7 @@ namespace _3DS_link_trade_bot
             nokey = BitConverter.GetBytes(0);
             nokey.CopyTo(buttonarray, 16);
             Connection.Send(buttonarray);
-
+           
 
         }
 
@@ -466,6 +476,89 @@ namespace _3DS_link_trade_bot
             Connection.Send(buttonarray);
         }
 
-  
+        private void RChome_Click(object sender, EventArgs e)
+        {
+            var buttonarray = new byte[20];
+            var nokey = BitConverter.GetBytes(0xFFF);
+            nokey.CopyTo(buttonarray, 0);
+            nokey = BitConverter.GetBytes(0x2000000);
+            nokey.CopyTo(buttonarray, 4);
+            nokey = BitConverter.GetBytes(0x800800);
+            nokey.CopyTo(buttonarray, 8);
+            nokey = BitConverter.GetBytes(0x80800081);
+            nokey.CopyTo(buttonarray, 12);
+            nokey = BitConverter.GetBytes(1);
+            nokey.CopyTo(buttonarray, 16);
+            Connection.Send(buttonarray);
+        }
+
+        private void start_Click(object sender, EventArgs e)
+
+        {
+            var buttonarray = new byte[20];
+            var nokey = BitConverter.GetBytes((uint)Start);
+            nokey.CopyTo(buttonarray, 0);
+            nokey = BitConverter.GetBytes(0x2000000);
+            nokey.CopyTo(buttonarray, 4);
+            nokey = BitConverter.GetBytes(0x800800);
+            nokey.CopyTo(buttonarray, 8);
+            nokey = BitConverter.GetBytes(0x80800081);
+            nokey.CopyTo(buttonarray, 12);
+            nokey = BitConverter.GetBytes(0);
+            nokey.CopyTo(buttonarray, 16);
+            Connection.Send(buttonarray);
+        }
+
+        private void RCselect_Click(object sender, EventArgs e)
+        {
+            var buttonarray = new byte[20];
+            var nokey = BitConverter.GetBytes((uint)Buttons.Select);
+            nokey.CopyTo(buttonarray, 0);
+            nokey = BitConverter.GetBytes(0x2000000);
+            nokey.CopyTo(buttonarray, 4);
+            nokey = BitConverter.GetBytes(0x800800);
+            nokey.CopyTo(buttonarray, 8);
+            nokey = BitConverter.GetBytes(0x80800081);
+            nokey.CopyTo(buttonarray, 12);
+            nokey = BitConverter.GetBytes(0);
+            nokey.CopyTo(buttonarray, 16);
+            Connection.Send(buttonarray);
+        }
+
+        private void RCpower_Click(object sender, EventArgs e)
+        {
+            var buttonarray = new byte[20];
+            var nokey = BitConverter.GetBytes((uint)NoKey);
+            nokey.CopyTo(buttonarray, 0);
+            nokey = BitConverter.GetBytes(0x2000000);
+            nokey.CopyTo(buttonarray, 4);
+            nokey = BitConverter.GetBytes(0x800800);
+            nokey.CopyTo(buttonarray, 8);
+            nokey = BitConverter.GetBytes(0x80800081);
+            nokey.CopyTo(buttonarray, 12);
+            nokey = BitConverter.GetBytes(2);
+            nokey.CopyTo(buttonarray, 16);
+            Connection.Send(buttonarray);
+        }
+
+        private async void pictureBox6_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs e2 = (MouseEventArgs)e;
+            var buttonarray = new byte[20];
+            var nokey = BitConverter.GetBytes((uint)NoKey);
+            nokey.CopyTo(buttonarray, 0);
+            nokey = BitConverter.GetBytes(gethexcoord(e2.X, e2.Y));
+            nokey.CopyTo(buttonarray, 4);
+            nokey = BitConverter.GetBytes(0x800800);
+            nokey.CopyTo(buttonarray, 8);
+            nokey = BitConverter.GetBytes(0x80800081);
+            nokey.CopyTo(buttonarray, 12);
+            nokey = BitConverter.GetBytes(0);
+            nokey.CopyTo(buttonarray, 16);
+            Connection.Send(buttonarray);
+       
+        }
+
+   
     }
 }

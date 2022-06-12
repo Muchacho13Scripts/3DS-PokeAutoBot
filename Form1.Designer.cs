@@ -38,6 +38,14 @@
             this.Logs = new System.Windows.Forms.TabPage();
             this.logbox = new System.Windows.Forms.RichTextBox();
             this.RemoteControl = new System.Windows.Forms.TabPage();
+            this.touchscreen = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.RCpower = new System.Windows.Forms.Button();
+            this.RCselect = new System.Windows.Forms.Button();
+            this.RCstart = new System.Windows.Forms.Button();
+            this.RChome = new System.Windows.Forms.Button();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.RCa = new System.Windows.Forms.Button();
             this.RCb = new System.Windows.Forms.Button();
             this.RCx = new System.Windows.Forms.Button();
@@ -56,17 +64,17 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tabs.SuspendLayout();
             this.LinkTrades.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Logs.SuspendLayout();
             this.RemoteControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.touchscreen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // tabs
@@ -78,7 +86,7 @@
             this.tabs.Location = new System.Drawing.Point(0, 65);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(538, 281);
+            this.tabs.Size = new System.Drawing.Size(538, 312);
             this.tabs.TabIndex = 0;
             // 
             // LinkTrades
@@ -91,7 +99,7 @@
             this.LinkTrades.Location = new System.Drawing.Point(4, 24);
             this.LinkTrades.Name = "LinkTrades";
             this.LinkTrades.Padding = new System.Windows.Forms.Padding(3);
-            this.LinkTrades.Size = new System.Drawing.Size(530, 253);
+            this.LinkTrades.Size = new System.Drawing.Size(530, 284);
             this.LinkTrades.TabIndex = 0;
             this.LinkTrades.Text = "Link Trades";
             // 
@@ -100,7 +108,7 @@
             this.LinkTradeStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.LinkTradeStop.Enabled = false;
             this.LinkTradeStop.ForeColor = System.Drawing.Color.White;
-            this.LinkTradeStop.Location = new System.Drawing.Point(281, 224);
+            this.LinkTradeStop.Location = new System.Drawing.Point(281, 255);
             this.LinkTradeStop.Name = "LinkTradeStop";
             this.LinkTradeStop.Size = new System.Drawing.Size(75, 23);
             this.LinkTradeStop.TabIndex = 2;
@@ -113,7 +121,7 @@
             this.startlinktrades.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.startlinktrades.Enabled = false;
             this.startlinktrades.ForeColor = System.Drawing.Color.White;
-            this.startlinktrades.Location = new System.Drawing.Point(187, 224);
+            this.startlinktrades.Location = new System.Drawing.Point(187, 255);
             this.startlinktrades.Name = "startlinktrades";
             this.startlinktrades.Size = new System.Drawing.Size(75, 23);
             this.startlinktrades.TabIndex = 0;
@@ -128,7 +136,7 @@
             this.Settings.Location = new System.Drawing.Point(4, 24);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(530, 253);
+            this.Settings.Size = new System.Drawing.Size(530, 284);
             this.Settings.TabIndex = 3;
             this.Settings.Text = "Settings";
             // 
@@ -146,7 +154,7 @@
             this.propertyGrid1.Location = new System.Drawing.Point(8, 6);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.SelectedItemWithFocusBackColor = System.Drawing.SystemColors.ControlText;
-            this.propertyGrid1.Size = new System.Drawing.Size(519, 247);
+            this.propertyGrid1.Size = new System.Drawing.Size(519, 275);
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.ViewBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.propertyGrid1.ViewForeColor = System.Drawing.Color.White;
@@ -158,7 +166,7 @@
             this.Logs.Location = new System.Drawing.Point(4, 24);
             this.Logs.Name = "Logs";
             this.Logs.Padding = new System.Windows.Forms.Padding(3);
-            this.Logs.Size = new System.Drawing.Size(530, 253);
+            this.Logs.Size = new System.Drawing.Size(530, 284);
             this.Logs.TabIndex = 1;
             this.Logs.Text = "Logs";
             // 
@@ -169,13 +177,20 @@
             this.logbox.Location = new System.Drawing.Point(8, 6);
             this.logbox.Name = "logbox";
             this.logbox.ReadOnly = true;
-            this.logbox.Size = new System.Drawing.Size(519, 247);
+            this.logbox.Size = new System.Drawing.Size(519, 275);
             this.logbox.TabIndex = 0;
             this.logbox.Text = "";
             // 
             // RemoteControl
             // 
             this.RemoteControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.RemoteControl.Controls.Add(this.touchscreen);
+            this.RemoteControl.Controls.Add(this.label4);
+            this.RemoteControl.Controls.Add(this.label3);
+            this.RemoteControl.Controls.Add(this.RCpower);
+            this.RemoteControl.Controls.Add(this.RCselect);
+            this.RemoteControl.Controls.Add(this.RCstart);
+            this.RemoteControl.Controls.Add(this.RChome);
             this.RemoteControl.Controls.Add(this.pictureBox5);
             this.RemoteControl.Controls.Add(this.RCa);
             this.RemoteControl.Controls.Add(this.RCb);
@@ -188,9 +203,109 @@
             this.RemoteControl.Location = new System.Drawing.Point(4, 24);
             this.RemoteControl.Name = "RemoteControl";
             this.RemoteControl.Padding = new System.Windows.Forms.Padding(3);
-            this.RemoteControl.Size = new System.Drawing.Size(530, 253);
+            this.RemoteControl.Size = new System.Drawing.Size(530, 284);
             this.RemoteControl.TabIndex = 4;
             this.RemoteControl.Text = "Remote Control";
+            // 
+            // touchscreen
+            // 
+            this.touchscreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("touchscreen.BackgroundImage")));
+            this.touchscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.touchscreen.InitialImage = global::_3DS_link_trade_bot.Properties.Resources.touchscreen;
+            this.touchscreen.Location = new System.Drawing.Point(104, 10);
+            this.touchscreen.Name = "touchscreen";
+            this.touchscreen.Size = new System.Drawing.Size(320, 240);
+            this.touchscreen.TabIndex = 15;
+            this.touchscreen.TabStop = false;
+            this.touchscreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox6_Click);
+            this.touchscreen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RC_Release);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.DarkGray;
+            this.label4.Location = new System.Drawing.Point(467, 218);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 15);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "SELECT";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.DarkGray;
+            this.label3.Location = new System.Drawing.Point(467, 190);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 15);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "START";
+            // 
+            // RCpower
+            // 
+            this.RCpower.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RCpower.BackgroundImage")));
+            this.RCpower.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RCpower.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.RCpower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RCpower.Location = new System.Drawing.Point(498, 249);
+            this.RCpower.Name = "RCpower";
+            this.RCpower.Size = new System.Drawing.Size(29, 29);
+            this.RCpower.TabIndex = 12;
+            this.RCpower.UseVisualStyleBackColor = true;
+            this.RCpower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RCpower_Click);
+            this.RCpower.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RC_Release);
+            // 
+            // RCselect
+            // 
+            this.RCselect.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RCselect.BackgroundImage")));
+            this.RCselect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RCselect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.RCselect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RCselect.Location = new System.Drawing.Point(440, 214);
+            this.RCselect.Name = "RCselect";
+            this.RCselect.Size = new System.Drawing.Size(21, 22);
+            this.RCselect.TabIndex = 11;
+            this.RCselect.UseVisualStyleBackColor = true;
+            this.RCselect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RCselect_Click);
+            this.RCselect.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RC_Release);
+            // 
+            // RCstart
+            // 
+            this.RCstart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RCstart.BackgroundImage")));
+            this.RCstart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RCstart.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.RCstart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RCstart.ForeColor = System.Drawing.Color.Transparent;
+            this.RCstart.Location = new System.Drawing.Point(440, 187);
+            this.RCstart.Name = "RCstart";
+            this.RCstart.Size = new System.Drawing.Size(21, 21);
+            this.RCstart.TabIndex = 10;
+            this.RCstart.UseVisualStyleBackColor = true;
+            this.RCstart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.start_Click);
+            this.RCstart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RC_Release);
+            // 
+            // RChome
+            // 
+            this.RChome.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RChome.BackgroundImage")));
+            this.RChome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RChome.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.RChome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RChome.Location = new System.Drawing.Point(243, 255);
+            this.RChome.Name = "RChome";
+            this.RChome.Size = new System.Drawing.Size(41, 23);
+            this.RChome.TabIndex = 9;
+            this.RChome.UseVisualStyleBackColor = true;
+            this.RChome.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RChome_Click);
+            this.RChome.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RC_Release);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackgroundImage = global::_3DS_link_trade_bot.Properties.Resources.Center;
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox5.Location = new System.Drawing.Point(37, 136);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(31, 31);
+            this.pictureBox5.TabIndex = 8;
+            this.pictureBox5.TabStop = false;
             // 
             // RCa
             // 
@@ -199,7 +314,7 @@
             this.RCa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.RCa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RCa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.RCa.Location = new System.Drawing.Point(467, 78);
+            this.RCa.Location = new System.Drawing.Point(482, 78);
             this.RCa.Name = "RCa";
             this.RCa.Size = new System.Drawing.Size(30, 31);
             this.RCa.TabIndex = 7;
@@ -214,9 +329,9 @@
             this.RCb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.RCb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RCb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.RCb.Location = new System.Drawing.Point(430, 109);
+            this.RCb.Location = new System.Drawing.Point(458, 102);
             this.RCb.Name = "RCb";
-            this.RCb.Size = new System.Drawing.Size(31, 35);
+            this.RCb.Size = new System.Drawing.Size(31, 31);
             this.RCb.TabIndex = 6;
             this.RCb.UseVisualStyleBackColor = false;
             this.RCb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RCb_Click);
@@ -227,9 +342,10 @@
             this.RCx.BackColor = System.Drawing.Color.Transparent;
             this.RCx.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RCx.BackgroundImage")));
             this.RCx.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RCx.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.RCx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RCx.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.RCx.Location = new System.Drawing.Point(430, 53);
+            this.RCx.Location = new System.Drawing.Point(458, 53);
             this.RCx.Name = "RCx";
             this.RCx.Size = new System.Drawing.Size(31, 31);
             this.RCx.TabIndex = 5;
@@ -244,7 +360,7 @@
             this.RCy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.RCy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RCy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.RCy.Location = new System.Drawing.Point(393, 78);
+            this.RCy.Location = new System.Drawing.Point(430, 78);
             this.RCy.Name = "RCy";
             this.RCy.Size = new System.Drawing.Size(31, 31);
             this.RCy.TabIndex = 4;
@@ -370,7 +486,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 349);
+            this.label2.Location = new System.Drawing.Point(6, 383);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 15);
             this.label2.TabIndex = 5;
@@ -381,7 +497,7 @@
             this.statusbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.statusbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.statusbox.ForeColor = System.Drawing.Color.White;
-            this.statusbox.Location = new System.Drawing.Point(50, 352);
+            this.statusbox.Location = new System.Drawing.Point(50, 383);
             this.statusbox.Multiline = false;
             this.statusbox.Name = "statusbox";
             this.statusbox.ReadOnly = true;
@@ -422,22 +538,12 @@
             this.pictureBox4.TabIndex = 9;
             this.pictureBox4.TabStop = false;
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackgroundImage = global::_3DS_link_trade_bot.Properties.Resources.Center;
-            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox5.Location = new System.Drawing.Point(37, 136);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(31, 31);
-            this.pictureBox5.TabIndex = 8;
-            this.pictureBox5.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(550, 373);
+            this.ClientSize = new System.Drawing.Size(550, 404);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -461,11 +567,13 @@
             this.Settings.ResumeLayout(false);
             this.Logs.ResumeLayout(false);
             this.RemoteControl.ResumeLayout(false);
+            this.RemoteControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.touchscreen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -501,5 +609,12 @@
         public Button RCx;
         public Button RCy;
         private PictureBox pictureBox5;
+        public Button RChome;
+        public Button RCselect;
+        public Button RCstart;
+        private Label label4;
+        private Label label3;
+        public Button RCpower;
+        private PictureBox touchscreen;
     }
 }
