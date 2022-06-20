@@ -143,7 +143,7 @@ namespace _3DS_link_trade_bot
 
             if (receivingpkm == null || !receivingpkm.ChecksumValid)
             {
-                ChangeStatus($"No Match found, exit Wonder Trade");
+                ChangeStatus($"No Match found, exiting Wonder Trade");
                 foreach (var chan in _settings.Discordsettings.BotWTChannel)
                 {
                     var tosend = (ITextChannel)_client.GetChannel(chan);
@@ -153,9 +153,9 @@ namespace _3DS_link_trade_bot
                 while (!infestivalplaza && stop.ElapsedMilliseconds < 60_000)
                     await click(B, 2);
                 await Task.Delay(5_000);
+                return;
             }
-            else
-            {
+
                 var matchedtrainerbytes = ntr.ReadBytes(WTTrainerMatch, 24);
                 var matchedtrainer = Encoding.Unicode.GetString(matchedtrainerbytes).Trim('\0');
                 stop.Restart();
@@ -214,8 +214,6 @@ namespace _3DS_link_trade_bot
                 while (!infestivalplaza && stop.ElapsedMilliseconds < 60_000)
                     await click(B, 2);
                 await Task.Delay(5_000);
-
-            }
 
 
         }
