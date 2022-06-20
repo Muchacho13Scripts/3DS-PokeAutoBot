@@ -117,11 +117,18 @@ namespace _3DS_link_trade_bot
                   }
               
                     var sav = TrainerSettings.GetSavedTrainerData(7);
+                    Random random = new Random();
                     PK7 temp = new();
-                    pkm = sav.GetLegalFromTemplate(temp,new ShowdownSet($"{(Species)entry.RequestedPoke}\nLevel: {(entry.levelindex < 10 ? (entry.levelindex * 10) - 1 : 99)}\nShiny: Yes\nBall: Dive"), out _);
+                    pkm = sav.GetLegalFromTemplate(temp,new ShowdownSet($"rocketpkm.de ({(Species)entry.RequestedPoke})\nLevel: {(entry.levelindex < 10 ? (entry.levelindex * 10) - 1 : 99)}\nShiny: Yes\nBall: Dive"), out _);
                     pkm.Legalize();
                     pkm.OT_Name = entry.trainername;
                     pkm.Gender = entry.genderindex == 2 ? 1 : 0;
+                    int[] sugmov = MoveSetApplicator.GetMoveSet(pkm, true);
+                    pkm.SetMoves(sugmov);
+                    int natue = random.Next(24);
+                    pkm.Nature = natue;
+                    EffortValues.SetRandom(pkm.EVs, 7);
+                    pkm = pkm.Legalize();
                     if (!new LegalityAnalysis(pkm).Valid)
                     {
                         pkm = null;

@@ -23,7 +23,7 @@ namespace _3DS_link_trade_bot
         {
             
             ChangeStatus("starting a Link Trade");
-            await tradeinfo.discordcontext.User.SendMessageAsync("Starting Your Trade Now, Be Prepared To Accept The Invite!");
+            await tradeinfo.discordcontext.User.SendMessageAsync("Starting Your Trade Now, Be Prepared To Accept The Invite!\nMake sure you have added your Friend Code with /addfc before requesting a Pokemon!");
             string shiney = tradeinfo.tradepokemon.IsShiny ? "Shiny " : "";
             string eggy = tradeinfo.tradepokemon.IsEgg ? " (Egg)" : "";
             SetText($"Trade Request for {tradeinfo.discordcontext.User.Username}\nSending: {shiney}{(Species)tradeinfo.tradepokemon.Species}{eggy}");
@@ -168,7 +168,7 @@ namespace _3DS_link_trade_bot
         public static async Task FriendCodeRoutine()
         {
             ChangeStatus($"Adding {tradeinfo.discordcontext.User.Username} with friend code: {tradeinfo.friendcode}");
-            await tradeinfo.discordcontext.User.SendMessageAsync("adding you to the friends list now!");
+            await tradeinfo.discordcontext.User.SendMessageAsync("Adding you to the friends list now!");
             await presshome(2);
 
             await touch(120, 10, 1);
@@ -181,6 +181,7 @@ namespace _3DS_link_trade_bot
 
             await enterfriendcode(tradeinfo.friendcode);
             await Task.Delay(2000);
+            await tradeinfo.discordcontext.User.SendMessageAsync("Succesfully added you to the friends list! You can request your Pokemon now!");
             await touch(240, 230, 10);
 
             await touch(180, 100, 1);

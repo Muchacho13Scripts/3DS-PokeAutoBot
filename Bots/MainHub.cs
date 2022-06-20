@@ -105,12 +105,14 @@ namespace _3DS_link_trade_bot
                             var offembed = new EmbedBuilder();
                             offembed.AddField($"{discordmain._client.CurrentUser.Username} Bot Announcement", "Gen 7 Link Trade Bot is Offline");
                             await botchannelid.SendMessageAsync(embed: offembed.Build());
+
                         }
                     }
                     WTPSB.WTPsource.Cancel();
                     tradetoken.Cancel();
-                    
-                   
+                    Environment.Exit(0);
+
+
                 }
             }
             ChangeStatus("Bot Stopped");

@@ -43,6 +43,10 @@ namespace _3DS_link_trade_bot
             // Block this task until the program is closed.
             await Task.Delay(-1);
         }
+
+
+
+
         private async Task ready()
         {
            

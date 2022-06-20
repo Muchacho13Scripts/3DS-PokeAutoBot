@@ -94,6 +94,7 @@ namespace _3DS_link_trade_bot
             {
                 var bot = new discordmain();
                 bot.MainAsync();
+                
                 ChangeStatus("Connected to Discord");
             }
             catch { ChangeStatus("Could not connect to discord"); }
@@ -330,6 +331,8 @@ namespace _3DS_link_trade_bot
             form1.startlinktrades.Enabled = false;
             form1.LinkTradeStop.Enabled = false;
             form1.consoleconnect.Enabled = true;
+            
+
         }
         
          private void button1_Click(object sender, EventArgs e)
